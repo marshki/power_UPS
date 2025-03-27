@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+MODEL=$(pwrstat -status |awk '/Model Name/ {print $3}')
+EVENT=$(pwrstat -status |awk '/Power Event/ {print $4}')
+BATTERY=$(pwrstat -status |awk '/Battery Capacity/ {print $3, $4}')
+RUNTIME=$(pwrstat -status |awk '/Remaining Runtime/ {print $3, $4}')
+LOAD=$(pwrstat -status |awk '/Load/ {print $3, $4, $5}')
+
+printf "%s\n" "$MODEL" "$EVENT" "$BATTERY" "$RUNTIME" "$LOAD"

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+command -v pwrstat >/dev/null 2>&1 || { printf "%s\n" >&2 "'pwrstat' not detected. Exiting."; exit 1; }
+
+script=$(basename "$0")
+program="PowerUPS"
+
+TABLE=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' dataPoints.csv)
+
+estimated_runtimes() {
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$TABLE" 30 54
+}
+
+main() {
+  estimated_runtimes
+}
+
+main "$@"
