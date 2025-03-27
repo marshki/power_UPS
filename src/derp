@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+script=$(basename "$0")
+program="power_UPS"
+
+command_check() {
+
+  for cmd in "$@"; do
+    command -v "$cmd" >/dev/null 2>&1 ||
+      { printf "%s\n" >&2 "'$cmd' not detected. Exiting."; exit 1; }
+  done
+}
+
+permission_check() {
+
+  if [ "$EUID" -ne "0" ]; then
+    whiptail --backtitle "$script" --title "$program" --msgbox "'sudo' privileges not detected. Exiting." 10 40
+    exit 1
+fi
+}
+
+parse_pwrstat_status() {
+
+  pwrstat -status | awk -F '[.]+' '
+    /Model Name/ { model="Model Name:       "$2 }
+    /Power Event/ { event="Status:           "$2 }
+    /Battery Capacity/ { battery="Battery Capacity: "$2 }
+    /Remaining Runtime/ { runtime="Remaining Runtime:"$2 }
+    /Load/ { load="Load:             "$2 }
+    END { printf "%s\n%s\n%s\n%s\n%s\n", model, event, battery, runtime, load }
+  '
+}
+
+runtime_table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2 }' dataPoints.csv)
+
+run_ups_test() {
+	
+  pwrstat -test >/dev/null 2>&1 & 
+  wait $!
+  sleep 15
+}
+
+progress_bar() {
+
+  {
+    run_ups_test &
+    test_pid=$!
+
+    for ((i = 0; i <= 150; i++)); do
+        sleep 0.1 
+        printf "%s\n" $((i * 100 / 150))
+    done
+
+    wait $test_pid
+  } | whiptail --gauge "Running the UPS test. Please wait..." 6 50 0
+}
+
+parse_pwrstat_test() {
+  pwrstat -status | awk -F '[.]+' '/Test Result/ { print "Test Result:            "$2 }'
+}
+
+ups_stats() {
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_status)" 12 72
+}
+
+ups_runtimes() {
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$runtime_table" 30 54
+}
+
+ups_test() {
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_test)" 12 72
+}
+
+tui_menu() {
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --menu "Select an option" 15 40 4 \
+  "Status" "Display current UPS status" \
+  "Runtime" "Display estimated UPS runtime" \
+  "Test" "Perform UPS battery check" \
+  "Exit" "Quit program" 3>&1 1>&2 2>&3
+}
+
+
+main() {
+
+  clear
+  command_check "pwrstat" "whiptail"
+  permission_check
+
+  while true; do
+    choice=$(tui_menu)
+
+    case $choice in
+        Status)
+            ups_stats
+            ;;
+        Runtime)
+            ups_runtimes
+            ;;
+        Test)
+            progress_bar
+            ups_test
+            ;;
+        Exit)
+            whiptail --msgbox "Exiting." 8 40
+            break
+            ;;
+        *)
+            whiptail --msgbox "Invalid selection" 8 40
+            ;;
+    esac
+  done
+}
+
+main "$@"
