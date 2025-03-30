@@ -7,7 +7,6 @@ program="power_UPS"
 data_file="ups_data.csv"
 
 command_check() {
-
   for cmd in "$@"; do
     command -v "$cmd" >/dev/null 2>&1 ||
       { printf "%s\n" >&2 "'$cmd' not detected. Exiting."; exit 1; }
@@ -15,7 +14,6 @@ command_check() {
 }
 
 data_file_check() {
-
   if [ ! -f "$data_file" ]; then
     whiptail --backtitle "$script" --title "$program" --msgbox "Data file '$data_file' not found. Exiting." 10 40 0
     exit 1
@@ -23,7 +21,6 @@ data_file_check() {
 }
 
 permission_check() {
-
   if [ "$EUID" -ne "0" ]; then
     whiptail --backtitle "$script" --title "$program" --msgbox "'sudo' privileges not detected. Exiting." 10 40 0
     exit 1
@@ -31,7 +28,6 @@ fi
 }
 
 parse_pwrstat_status() {
-
   pwrstat -status | awk -F '[.]+' '
     /Model Name/ { model="Model Name:       "$2 }
     /Power Event/ { event="Status:           "$2 }
@@ -45,14 +41,12 @@ parse_pwrstat_status() {
 runtime_table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2 }' ups_data.csv)
 
 run_ups_test() {
-	
   pwrstat -test >/dev/null 2>&1 &
   wait $!
   sleep 15
 }
 
 progress_bar() {
-
   {
     run_ups_test &
     test_pid=$!
@@ -67,27 +61,22 @@ progress_bar() {
 }
 
 parse_pwrstat_test() {
-
   pwrstat -status | awk -F '[.]+' '/Test Result/ { print "Test Result:            "$2 }'
 }
 
 ups_stats() {
-
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_status)" 16 64 0
 }
 
 ups_runtimes() {
-
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$runtime_table" 30 60 0
 }
 
 ups_test() {
-
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_test)" 12 72 0
 }
 
 tui_menu() {
-
   TERM=ansi whiptail --backtitle "$script" --title "$program" --menu "Select an option" 12 48 4 \
   "Status" "Display current UPS status" \
   "Runtime" "Display estimated UPS runtime" \
@@ -96,7 +85,6 @@ tui_menu() {
 }
 
 main() {
-
   clear
   command_check "pwrstat" "whiptail"
   permission_check
