@@ -1,0 +1,57 @@
+
+
+
+
+
+
+
+
+
+
+
+
+#!/usr/bin/env bash
+
+#!/usr/bin/env bash
+
+# Capture pwrstat status once to avoid multiple calls
+pwrstat_output=$(pwrstat -status)
+
+# Parse all required values using a single awk call
+parse_output() {
+  awk -F '[.]+' '
+    /Model Name/ { model="Model Name:        "$2 }
+    /Power Event/ { event="Status:            "$2 }
+    /Battery Capacity/ { battery="Battery Capacity:  "$2 }
+    /Remaining Runtime/ { runtime="Remaining Runtime: "$2 }
+    /Load/ { load="Load:              "$2 }
+    END {
+      if (model && event && battery && runtime && load) {
+        printf "%s\n%s\n%s\n%s\n%s\n", model, event, battery, runtime, load
+      } else {
+        print "Error: Some information could not be retrieved."
+        exit 1
+      }
+    }
+  ' <<< "$pwrstat_output"
+}
+
+# Store the parsed output in a variable
+status_report=$(parse_output)
+
+# Print the results
+printf "%s\n" "$status_report"
+
+
+
+
+
+
+
+#MODEL=$(pwrstat -status |awk '/Model Name/ {print $3}')
+#EVENT=$(pwrstat -status |awk '/Power Event/ {print $4}')
+#BATTERY=$(pwrstat -status |awk '/Battery Capacity/ {print $3, $4}')
+#RUNTIME=$(pwrstat -status |awk '/Remaining Runtime/ {print $3, $4}')
+#LOAD=$(pwrstat -status |awk '/Load/ {print $3, $4, $5}')
+
+#printf "%s\n" "$MODEL" "$EVENT" "$BATTERY" "$RUNTIME" "$LOAD"
