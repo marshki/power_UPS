@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Parse output of `pwrstat` command and print in a nciely formatted way
 
 # Capture pwrstat status once to avoid multiple calls
 pwrstat_output=$(pwrstat -status)
