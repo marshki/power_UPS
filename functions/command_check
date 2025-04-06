@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Pre-check if command(s) exist on host. Exit if not.
-
+# Check if command(s) exist on host. Exit if not.
 command_check() {
   for cmd in "$@"; do
     command -v "$cmd" >/dev/null 2>&1 ||
@@ -8,4 +7,4 @@ command_check() {
   done
 }
 
-command_check "pwrstat" "whiptail" "derp"
+command_check "derp" "pwrstat" "whiptail"
