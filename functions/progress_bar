@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Generate faux progress bar while UPS self-test runs
 
 run_test() {
   pwrstat -test >/dev/null 2>&1
@@ -8,11 +9,13 @@ run_test() {
   # Run the UPS test in the background
   run_test & 
   test_pid=$!
+
   # Simulate a 15-second progress bar
   for ((i = 0; i <= 150; i++)); do
     sleep 0.1
     printf "%s\n" $((i * 100 / 150))
   done
+
   # Wait for the UPS test to complete
   wait $test_pid
 } | whiptail --gauge "Running the UPS test. Please wait..." 6 50 0
