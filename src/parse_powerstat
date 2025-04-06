@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Parse output of `pwrstat` command and print in a nciely formatted way
+# Parse output of `pwrstat` command and print (cleanly)
 
-# Capture pwrstat status once to avoid multiple calls
+# Capture pwrstat command output
 pwrstat_output=$(pwrstat -status)
 
-# Parse all required values using a single awk call
+# Parse all required values using awk
 parse_output() {
   awk '
     BEGIN {
