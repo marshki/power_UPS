@@ -4,25 +4,27 @@
 # Capture pwrstat command output
 pwrstat_output=$(pwrstat -status)
 
-# Parse all required values using awk
+# Pipe pwrstat_output to awk
+# awk to parse select 'pwrstat' values ('.' field separator)
+# print values
 parse_output() {
   awk '
     BEGIN {
       FS = "[.]+"
       model = ""
-      event = ""
+      state = ""
       battery = ""
       runtime = ""
       load = ""
     }
     /Model Name/        { model = "Model Name:            " $2 }
-    /Power Event/       { event = "Status:                " $2 }
+    /State/             { state = "Status:                " $2 }
     /Battery Capacity/  { battery = "Battery Capacity:      " $2 }
     /Remaining Runtime/ { runtime = "Remaining Runtime:     " $2 }
     /Load/              { load = "Load:                  " $2 }
     END {
       print model
-      print event
+      print state
       print battery
       print runtime
       print load
