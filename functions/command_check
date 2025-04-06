@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
+# Pre-check if command(s) exist on host. Exit if not.
 
 command_check() {
-
   for cmd in "$@"; do
     command -v "$cmd" >/dev/null 2>&1 ||
       { printf "%s\n" >&2 "'$cmd' not detected. Exiting."; exit 1; }
   done
 }
 
-command_check "derp" "pwrstat" "whiptail"
+command_check "pwrstat" "whiptail" "derp"
