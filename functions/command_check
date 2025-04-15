@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# Check if command(s) exist on host. Exit if not.
+# Check if command(s), provided as arguments, exist on host.
+# Exit if not.
 command_check() {
   for cmd in "$@"; do
     command -v "$cmd" >/dev/null 2>&1 ||
