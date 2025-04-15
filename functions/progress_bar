@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # Generate faux progress bar while UPS self-test runs
 
+# Run pwrstat test silently
 run_test() {
   pwrstat -test >/dev/null 2>&1
 }
 
-{ # Use subshell to group `pwrstat` command & pipe progress values to whiptail
+{ # Create subshell and pipe progress values to whiptail
   # Run the UPS test in the background
   run_test & 
   test_pid=$!
@@ -20,4 +21,5 @@ run_test() {
   wait $test_pid
 } | whiptail --gauge "Running the UPS test. Please wait..." 6 50 0
 
+# Print pwrstat status
 pwrstat -status
