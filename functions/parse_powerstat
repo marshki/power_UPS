@@ -6,7 +6,7 @@ pwrstat_output=$(pwrstat -status)
 
 # Pipe pwrstat_output to awk
 # awk to parse select 'pwrstat' values ('.' field separator)
-# print values
+# awk to print values
 parse_output() {
   awk '
     BEGIN {
