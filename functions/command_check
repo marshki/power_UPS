@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Check if command(s)--provided as an argument(s)--exists.
-# Exit if not.
+# Check if command(s)--provided as argument(s)--exist.
+# Exit if command not found.
 
 command_check() {
   for cmd in "$@"; do
     if ! command -v "$cmd" >/dev/null 2>&1; then
-    printf "Error: Required command '%s' not found. Exiting.\n" "$cmd" >&2
-  exit 1
-  fi
+      printf "%s\n" "Error: Required command "$cmd" not found. Exiting." >&2
+      exit 1
+    fi
 done
 }
 
