@@ -29,7 +29,7 @@ permission_check() {
 fi
 }
 
-parse_pwrstat_status() {
+parse_pwrstat_output() {
   awk '
     BEGIN {
       FS = "[.]+"
@@ -81,7 +81,7 @@ parse_pwrstat_test() {
 }
 
 ups_stats() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_status)" 16 64 0
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_output)" 16 64 0
 }
 
 ups_runtimes() {
