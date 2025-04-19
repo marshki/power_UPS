@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-
-# Check if command (e.g.'pwrstat')--provided as an argument--exists on host.
+# Check if command(s)--provided as an argument(s)--exists.
 # Exit if not.
+
 command_check() {
   for cmd in "$@"; do
-    command -v "$cmd" >/dev/null 2>&1 ||
-      { printf "%s\n" >&2 "'$cmd' not detected. Exiting."; exit 1; }
-  done
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+    printf "Error: Required command '%s' not found. Exiting.\n" "$cmd" >&2
+  exit 1
+  fi
+done
 }
 
-command_check "pwrstat"
+command_check "pwrstat" "whiptail"
