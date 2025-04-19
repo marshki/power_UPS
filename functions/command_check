@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Check if command(s), provided as arguments, exist on host.
+# Check if command (e.g.'pwrstat')--provided as an argument--exists on host.
 # Exit if not.
 command_check() {
   for cmd in "$@"; do
@@ -9,4 +9,4 @@ command_check() {
   done
 }
 
-command_check "derp" "pwrstat" "whiptail"
+command_check "pwrstat"
