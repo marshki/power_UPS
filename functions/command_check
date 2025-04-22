@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Check if command(s)--provided as argument(s)--exists.
-# Exit if command not found.
+# Check if command(s)--provided as argument(s)--exist. Exit if cmd not found.
 
 command_check() {
   for cmd in "$@"; do
