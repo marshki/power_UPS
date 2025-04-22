@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Generate faux progress bar while UPS self-test runs
 
+script=$(basename "$0")
+program="power_UPS"
+
 # Run pwrstat test silently
 run_test() {
   pwrstat -test >/dev/null 2>&1
@@ -19,7 +22,7 @@ run_test() {
 
   # Wait for the UPS test to complete
   wait $test_pid
-} | whiptail --gauge "Running the UPS test. Please wait..." 6 50 0
+} | TERM=ansi whiptail --backtitle "$script" --title "$program" --gauge "Running the UPS test. Please wait..." 10 40 0
 
 # Print pwrstat status
-pwrstat -status
+# pwrstat -status
