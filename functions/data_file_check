@@ -4,12 +4,11 @@
 script=$(basename "$0")
 program="power_UPS"
 
-data_file="ups_data.csv"
+data_file="upps_data.csv"
 
 data_file_check() {
   if [ ! -f "$data_file" ]; then
     whiptail --backtitle "$script" --title "$program" --msgbox "Data file '$data_file' not found. Exiting." 10 40 0
-    # printf "%s\n" "Data file '$data_file' not found. Exiting."
     exit 1
   fi
 }
