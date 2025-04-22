@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Parse output of `pwrstat` command and print (cleanly)
+# Parse output of `pwrstat` command and print (cleanly).
 
 # Capture pwrstat command output
 pwrstat_output=$(pwrstat -status)
@@ -7,7 +7,7 @@ pwrstat_output=$(pwrstat -status)
 # Pipe pwrstat_output to awk
 # awk to parse select 'pwrstat' values ('.' field separator)
 # awk to print values
-parse_output() {
+parse_pwrstat_output() {
   awk '
     BEGIN {
       FS = "[.]+"
@@ -32,4 +32,4 @@ parse_output() {
   ' <<< "$pwrstat_output"
 }
 
-parse_output
+parse_pwrstat_output
