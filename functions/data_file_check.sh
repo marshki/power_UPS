@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Check if data file exists,
+# Exit if not.
 
 data_file="ups_data.csv"
 
