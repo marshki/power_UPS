@@ -24,5 +24,5 @@ run_test() {
   wait $test_pid
 } | TERM=ansi whiptail --backtitle "$script" --title "$program" --gauge "Running the UPS test. Please wait..." 10 40 0
 
-# Print pwrstat status
+# Print pwrstat status (optional, uncomment if desired)
 # pwrstat -status
