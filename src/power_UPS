@@ -26,7 +26,7 @@ permission_check() {
   if [ "$EUID" -ne "0" ]; then
     whiptail --backtitle "$script" --title "$program" --msgbox "'sudo' privileges not detected. Exiting." 10 40 0
     exit 1
-fi
+  fi
 }
 
 parse_pwrstat_output() {
