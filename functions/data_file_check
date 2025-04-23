@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Check if data file exists, Exit if not.
+# Check if data file exists. Exit if not.
 
 script=$(basename "$0")
 program="power_UPS"
