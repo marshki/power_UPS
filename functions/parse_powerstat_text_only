@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Parse output of `pwrstat` command and print (cleanly).
+# This function can run as is for text-based output.
+
+# Capture pwrstat command output
+pwrstat_output=$(pwrstat -status)
+
+# Pipe pwrstat_output to awk
+# awk to parse select 'pwrstat' values ('.' field separator)
+# awk to print values
+parse_pwrstat_output() {
+  awk '
+    BEGIN {
+      FS = "[.]+"
+      model = ""
+      state = ""
+      battery = ""
+      runtime = ""
+      load = ""
+    }
+    /Model Name/        { model = "Model Name:            " $2 }
+    /State/             { state = "Status:                " $2 }
+    /Battery Capacity/  { battery = "Battery Capacity:      " $2 }
+    /Remaining Runtime/ { runtime = "Remaining Runtime:     " $2 }
+    /Load/              { load = "Load:                  " $2 }
+    END {
+      print model
+      print state
+      print battery
+      print runtime
+      print load
+    }
+  ' <<< "$pwrstat_output"
+}
+
+parse_pwrstat_output
