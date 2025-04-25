@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Check if data file exists. Exit if not.
+# Check if data_file exists. Exit if not.
 
 script=$(basename "$0")
 program="power_UPS"
 
-data_file="upps_data.csv"
+data_file="ups_data.csv"
 
 data_file_check() {
   if [ ! -f "$data_file" ]; then
