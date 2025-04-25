@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Parse output of `pwrstat` command and print (cleanly).
-# This function can run as is for text-based output.
+# This function can run as is.
 
 # Capture pwrstat command output
 pwrstat_output=$(pwrstat -status)
