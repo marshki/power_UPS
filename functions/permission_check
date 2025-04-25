@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 # Is the current UID 0 (root)? If not, exit.
 
+script=$(basename "$0")
+program="power_UPS"
+
 # If user's UID is not 0, redirect output to standard error, then exit.
 root_check() {
   if [ "$EUID" -ne "0" ] ; then
-    printf "%s\n" "Error: Root privileges are required to continue. Exiting." >&2
+    whiptail --backtitle "$script" --title "$program" --msgbox "'sudo' privileges not detected. Exiting." 10 40 0
     exit 1
   fi
 }
