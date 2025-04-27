@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-
-command -v pwrstat >/dev/null 2>&1 || { printf "%s\n" >&2 "'pwrstat' not detected. Exiting."; exit 1; }
+# Parse ups_data.csv and create formatted table:
+# UPS Load(Watts)  Minutes of Runtime(estimated)
+# ---------------  -----------------------------
 
 script=$(basename "$0")
 program="PowerUPS"
