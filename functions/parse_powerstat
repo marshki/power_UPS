@@ -42,7 +42,7 @@ parse_pwrstat_output() {
 }
 
 ups_stats() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_output)" 16 64 0
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_output)" 16 72 0
 }
 
 ups_stats
