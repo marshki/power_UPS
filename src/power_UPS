@@ -38,18 +38,24 @@ parse_pwrstat_output() {
       battery = ""
       runtime = ""
       load = ""
+      result = ""
+      event = ""
     }
     /Model Name/        { model = "Model Name:            " $2 }
     /State/             { state = "Status:                " $2 }
     /Battery Capacity/  { battery = "Battery Capacity:      " $2 }
     /Remaining Runtime/ { runtime = "Remaining Runtime:     " $2 }
     /Load/              { load = "Load:                  " $2 }
+    /Test Result/       { result = "Test Result:        " $2 }
+    /Last Power Event/  { event = "Last Power Event:   " $2 }
     END {
       print model
       print state
       print battery
       print runtime
       print load
+      print result
+      printe event
     }
   ' <<< "$pwrstat_output"
 }
