@@ -55,7 +55,7 @@ parse_pwrstat_output() {
       print runtime
       print load
       print result
-      printe event
+      print event
     }
   ' <<< "$pwrstat_output"
 }
