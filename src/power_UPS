@@ -90,7 +90,7 @@ ups_stats() {
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_output)" 16 64 0
 }
 
-ups_runtimes() {
+ups_runtime() {
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$runtime_table" 30 60 0
 }
 
@@ -120,7 +120,7 @@ main() {
             ups_stats
             ;;
         Runtime)
-            ups_runtimes
+            ups_runtime
             ;;
         Test)
             progress_bar
