@@ -1,4 +1,5 @@
 # ups_plot - plot UPS runtime estimates based off of current wattage
+# For reference: http://www.gnuplot.info/documentation.html
 
 # Set output file format and name
 set terminal png
