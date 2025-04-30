@@ -2,6 +2,9 @@
 # Parse ups_data.csv and create formatted table:
 # UPS Load(Watts)  Minutes of Runtime(estimated)
 # ---------------  -----------------------------
+# 50               229
+# 100              137
+# 200              65.7
 
 script=$(basename "$0")
 program="PowerUPS"
