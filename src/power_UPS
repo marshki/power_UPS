@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 # CyberPower UPS utility.
+#
+# power_ups
+#
+# Author: M. Krinitz <mjk235 [at] nyu [dot] edu>
+# Date: 2025.05.02
+# License: MIT
+#
 
 script=$(basename "$0")
 program="power_UPS"
