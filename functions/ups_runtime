@@ -8,8 +8,10 @@
 
 script=$(basename "$0")
 program="PowerUPS"
+data_file="ups_data.csv"
 
-TABLE=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' ups_data.csv)
+
+TABLE=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' "$data_file")
 
 estimated_runtimes() {
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$TABLE" 30 54
