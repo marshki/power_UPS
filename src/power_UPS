@@ -16,7 +16,7 @@ pwrstat_output=$(pwrstat -status)
 command_check() {
   for cmd in "$@"; do
     if ! command -v "$cmd" >/dev/null 2>&1; then
-      printf "%s\n" "Error: Required command "$cmd" not found. Exiting." >&2
+      printf "%s\n" "Error: Required command $cmd not found. Exiting." >&2
       exit 1
     fi
 done
