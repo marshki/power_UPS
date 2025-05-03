@@ -5,7 +5,7 @@ script=$(basename "$0")
 program="power_UPS"
 
 # Run pwrstat test silently
-run_test() {
+progress_bar() {
   pwrstat -test >/dev/null 2>&1
 }
 
