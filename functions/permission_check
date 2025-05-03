@@ -5,11 +5,10 @@ script=$(basename "$0")
 program="power_UPS"
 
 # If user's UID is not 0, redirect output to standard error, then exit.
-root_check() {
+permission_check() {
   if [ "$EUID" -ne "0" ] ; then
     whiptail --backtitle "$script" --title "$program" --msgbox "'sudo' privileges not detected. Exiting." 10 40 0
     exit 1
   fi
 }
-
-root_check
+permission_check
