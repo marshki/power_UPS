@@ -4,10 +4,7 @@
 script=$(basename "$0")
 program="power_UPS"
 
-# Capture pwrstat command output
-# pwrstat_output=$(pwrstat -status)
-
-# Pipe pwrstat_output to awk
+# Pipe pwrstat -status output to awk
 # awk to parse select 'pwrstat' values ('.' field separator)
 # awk to print values
 parse_pwrstat_output() {
