@@ -7,7 +7,7 @@ program="power_UPS"
 # Pipe pwrstat -status output to awk
 # awk to parse select 'pwrstat' values ('.' field separator)
 # awk to print values
-parse_pwrstat_output() {
+parse_pwrstat() {
   pwrstat -status | awk '
     BEGIN {
       FS = "[.]+"
@@ -36,7 +36,7 @@ parse_pwrstat_output() {
 }
 
 ups_stats() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_output)" 16 72 0
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat)" 16 72 0
 }
 
 ups_stats
