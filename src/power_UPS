@@ -11,7 +11,6 @@
 script=$(basename "$0")
 program="power_UPS"
 data_file="ups_data.csv"
-pwrstat_output=$(pwrstat -status)
 
 command_check() {
   for cmd in "$@"; do
@@ -37,7 +36,7 @@ permission_check() {
 }
 
 parse_pwrstat_output() {
-  awk '
+  pwrstat -status | awk '
     BEGIN {
       FS = "[.]+"
       model = ""
@@ -61,7 +60,7 @@ parse_pwrstat_output() {
       print load
       print event
     }
-  ' <<< "$pwrstat_output"
+  '
 }
 
 runtime_table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2 }' "$data_file")
