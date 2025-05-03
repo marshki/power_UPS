@@ -2,14 +2,11 @@
 # Parse output of `pwrstat` command and print (cleanly).
 # This function can run as is.
 
-# Capture pwrstat command output
-pwrstat_output=$(pwrstat -status)
-
-# Pipe pwrstat_output to awk
+# Pipe pwrstat -status output to awk
 # awk to parse select 'pwrstat' values ('.' field separator)
 # awk to print values
 parse_pwrstat_output() {
-  awk '
+  pwrstat -status | awk '
     BEGIN {
       FS = "[.]+"
       model = ""
@@ -33,7 +30,7 @@ parse_pwrstat_output() {
       print load
       print event
     }
-  ' <<< "$pwrstat_output"
+  '
 }
 
 parse_pwrstat_output
