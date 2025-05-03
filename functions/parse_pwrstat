@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Parse output of `pwrstat` command and print (cleanly).
+
+script=$(basename "$0")
+program="power_UPS"
+
+# Pipe pwrstat -status output to awk
+# awk to parse select 'pwrstat' values ('.' field separator)
+# awk to print values
+parse_pwrstat_output() {
+  pwrstat -status | awk '
+    BEGIN {
+      FS = "[.]+"
+      model = ""
+      state = ""
+      battery = ""
+      runtime = ""
+      load = ""
+      event = ""
+    }
+    /Model Name/        { model = "Model Name:            " $2 }
+    /State/             { state = "Status:                " $2 }
+    /Battery Capacity/  { battery = "Battery Capacity:      " $2 }
+    /Remaining Runtime/ { runtime = "Remaining Runtime:     " $2 }
+    /Load/              { load = "Load:                  " $2 }
+    /Last Power Event/  { event = "Last Power Event:      " $2 }
+    END {
+      print model
+      print state
+      print battery
+      print runtime
+      print load
+      print event
+    }
+  '
+}
+
+ups_stats() {
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_output)" 16 72 0
+}
+
+ups_stats
