@@ -97,7 +97,7 @@ ups_runtime() {
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$TABLE" 30 60 0
 }
 
-ups_test() {
+pwrstat_test_results() {
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_test)" 12 72 0
 }
 
