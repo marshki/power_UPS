@@ -127,7 +127,7 @@ main() {
             ;;
         Test)
             progress_bar
-            ups_test
+            pwrstat_test_results 
             ;;
         Exit)
             whiptail --msgbox "Exiting." 12 40 0
