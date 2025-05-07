@@ -11,7 +11,7 @@ progress_bar() {
 
 { # Create subshell and pipe progress values to whiptail
   # Run the UPS test in the background
-  run_test & 
+  run_ups_test & 
   test_pid=$!
 
   # Simulate a 15-second progress bar
