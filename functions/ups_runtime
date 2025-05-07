@@ -10,8 +10,6 @@ script=$(basename "$0")
 program="PowerUPS"
 data_file="ups_data.csv"
 
-# TABLE=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' "$data_file")
-
 ups_runtime() {
   local table
   table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' "$data_file")
