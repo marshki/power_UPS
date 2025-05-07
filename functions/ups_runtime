@@ -10,10 +10,13 @@ script=$(basename "$0")
 program="PowerUPS"
 data_file="ups_data.csv"
 
-TABLE=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' "$data_file")
+# TABLE=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' "$data_file")
 
 ups_runtime() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$TABLE" 30 54
+  local table
+  table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2}' "$data_file")
+
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$table" 30 54
 }
 
 ups_runtime
