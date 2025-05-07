@@ -94,7 +94,10 @@ ups_stats() {
 }
 
 ups_runtime() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$TABLE" 30 60 0
+  local table
+  table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2 }' "$data_file")
+
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$table" 30 60 0
 }
 
 pwrstat_test_results() {
