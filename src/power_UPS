@@ -122,6 +122,7 @@ main() {
             ups_runtime
             ;;
         Test)
+            run_ups_test
             progress_bar
             ups_test_result
             ;;
