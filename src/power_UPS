@@ -69,9 +69,6 @@ run_ups_test() {
 
 progress_bar() {
   {
-    run_ups_test &
-    test_pid=$!
-
     for ((i = 0; i <= 150; i++)); do
         sleep 0.1
         printf "%s\n" $((i * 100 / 150))
