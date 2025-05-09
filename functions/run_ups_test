@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-# Run CyberPower UPS self-test
+# Run CyberPower UPS self-test.
 
-# Run built-in test, redirecting output to /dev/null
-# Pause script execution until background process completes
-# Sleep 15 seconds for test to run
+# Run built-in test, redirecting stdout to /dev/null
 run_ups_test() {
   pwrstat -test >/dev/null 2>&1
 }
