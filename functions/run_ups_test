@@ -7,7 +7,6 @@
 run_ups_test() {
   pwrstat -test >/dev/null 2>&1 &
   wait $1
-  # sleep 15
 }
 
 run_ups_test
