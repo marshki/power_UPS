@@ -5,8 +5,7 @@
 # Pause script execution until background process completes
 # Sleep 15 seconds for test to run
 run_ups_test() {
-  pwrstat -test >/dev/null 2>&1 &
-  wait $1
+  pwrstat -test >/dev/null 2>&1
 }
 
 run_ups_test
