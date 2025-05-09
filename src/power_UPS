@@ -63,8 +63,6 @@ parse_pwrstat() {
   '
 }
 
-TABLE=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2 }' "$data_file")
-
 run_ups_test() {
   pwrstat -test >/dev/null 2>&1 &
   wait $!
