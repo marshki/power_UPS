@@ -65,7 +65,6 @@ parse_pwrstat() {
 
 run_ups_test() {
   pwrstat -test >/dev/null 2>&1 &
-  wait $!
 }
 
 progress_bar() {
