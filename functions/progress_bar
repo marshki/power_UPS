@@ -4,14 +4,9 @@
 script=$(basename "$0")
 program="power_UPS"
 
-# Run pwrstat test silently
+# Run pwrstat test silently & assign it a PID
 progress_bar() {
-  pwrstat -test >/dev/null 2>&1
-}
-
-{ # Create subshell and pipe progress values to whiptail
-  # Run the UPS test in the background
-  run_ups_test & 
+  pwrstat -test >/dev/null 2>&1 &
   test_pid=$!
 
   # Simulate a 15-second progress bar
@@ -22,4 +17,6 @@ progress_bar() {
 
   # Wait for the UPS test to complete
   wait $test_pid
-} | TERM=ansi whiptail --backtitle "$script" --title "$program" --gauge "Running the UPS test. Please wait..." 10 40 0
+} 
+
+progress_bar | TERM=ansi whiptail --backtitle "$script" --title "$program" --gauge "Running the UPS test. Please wait..." 10 40 0
