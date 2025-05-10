@@ -74,7 +74,6 @@ progress_bar() {
         printf "%s\n" $((i * 100 / 150))
     done
 
-    wait $test_pid
   } | whiptail --gauge "Running the UPS test. Please wait..." 10 40 0
 }
 
