@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+script=$(basename "$0")
+program="power_UPS"
+
+ups_runtime() {
+  pwrstat -status | awk '
+    BEGIN {
+      FS = "[.]+"
+      runtime = ""
+      load = ""
+    }
+    /Remaining Runtime/ { runtime = "Minutes of Runtime (Estimated):     " $2 }
+    /Load/              { load = "UPS Load (Watts):                   " $2 }
+
+    END {
+      print load
+      print runtime
+    }
+  '
+} 
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(ups_runtime)" 12 72 0
+
+ups_runtime
