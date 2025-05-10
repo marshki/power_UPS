@@ -65,6 +65,7 @@ parse_pwrstat() {
 
 run_ups_test() {
   pwrstat -test >/dev/null 2>&1 &
+  test_pid=$!
 }
 
 progress_bar() {
@@ -75,6 +76,7 @@ progress_bar() {
     done
 
   } | whiptail --gauge "Running the UPS test. Please wait..." 10 40 0
+  wait $test_pid
 }
 
 parse_pwrstat_test_result() {
