@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Test using associative array to simplify calls and readability.
+
+declare -A UPS_DATA
+
+eval "$(pwrstat -status | awk -F '[.]+' '
+  /Model Name/        { printf "UPS_DATA[\"model\"]=\"%s\"\n", $2 }
+  /State/             { printf "UPS_DATA[\"state\"]=\"%s\"\n", $2 }
+  /Battery Capacity/  { printf "UPS_DATA[\"battery\"]=\"%s\"\n", $2 }
+  /Remaining Runtime/ { printf "UPS_DATA[\"runtime\"]=\"%s\"\n", $2 }
+  /Load/              { printf "UPS_DATA[\"load\"]=\"%s\"\n", $2 }
+  /Last Power Event/  { printf "UPS_DATA[\"event\"]=\"%s\"\n", $2 }
+  /Test Result/       { printf "UPS_DATA[\"test_result\"]=\"%s\"\n", $2 }
+')"
+
+# Accessing specific data
+printf "%s\n" "Load: ${UPS_DATA["load"]}"
+printf "%s\n" "Remaining Runtime: ${UPS_DATA["runtime"]}"
+
