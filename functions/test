@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Parse pwrstat -status for UPS load and estimated runtime.
+
 script=$(basename "$0")
 program="power_UPS"
 
