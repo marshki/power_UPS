@@ -3,6 +3,9 @@
 script=$(basename "$0")
 program="power_UPS"
 
+# Pipe pwrstat -status output to awk
+# awk to parse select 'pwrstat' values ('.' field separator)
+# awk to print values
 ups_runtime() {
   pwrstat -status | awk '
     BEGIN {
