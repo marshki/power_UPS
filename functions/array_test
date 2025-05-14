@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Test using associative array to simplify calls and readability.
+# Test using associative array to simplify calls and to improve readability.
 
 parse_pwrstat() {
   pwrstat -status | awk '
