@@ -1,19 +1,31 @@
 #!/usr/bin/env bash
 # Test using associative array to simplify calls and readability.
 
-declare -A UPS_DATA
+parse_pwrstat() {
+  pwrstat -status | awk '
+    BEGIN {
+      FS = "[.]+"
+      pwrstat_field["Model Name"] = ""
+      pwrstat_field["Status"] = ""
+      pwrstat_field["Battery Capacity"] = ""
+      pwrstat_field["Remaining Runtime"] = ""
+      pwrstat_field["Load"] = ""
+      pwrstat_field["Last Power Event"] = ""
+    }
 
-eval "$(pwrstat -status | awk -F '[.]+' '
-  /Model Name/        { printf "UPS_DATA[\"model\"]=\"%s\"\n", $2 }
-  /State/             { printf "UPS_DATA[\"state\"]=\"%s\"\n", $2 }
-  /Battery Capacity/  { printf "UPS_DATA[\"battery\"]=\"%s\"\n", $2 }
-  /Remaining Runtime/ { printf "UPS_DATA[\"runtime\"]=\"%s\"\n", $2 }
-  /Load/              { printf "UPS_DATA[\"load\"]=\"%s\"\n", $2 }
-  /Last Power Event/  { printf "UPS_DATA[\"event\"]=\"%s\"\n", $2 }
-  /Test Result/       { printf "UPS_DATA[\"test_result\"]=\"%s\"\n", $2 }
-')"
+    /Model Name/        { pwrstat_field["Model Name"] = $2 }
+    /State/             { pwrstat_field["Status"] = $2 }
+    /Battery Capacity/  { pwrstat_field["Battery Capacity"] = $2 }
+    /Remaining Runtime/ { pwrstat_field["Remaining Runtime"] = $2 }
+    /Load/              { pwrstat_field["Load"] = $2 }
+    /Last Power Event/  { pwrstat_field["Last Power Event"] = $2 }
 
-# Accessing specific data
-printf "%s\n" "Load: ${UPS_DATA["load"]}"
-printf "%s\n" "Remaining Runtime: ${UPS_DATA["runtime"]}"
+    END {
+      for (key in pwrstat_field) {
+        printf "%-20s %s\n", key ":", pwrstat_field[key]
+      }
+    }
+  '
+}
 
+parse_pwrstat
