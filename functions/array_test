@@ -2,22 +2,31 @@
 # Test using associative array to simplify calls and to improve readability.
 
 parse_pwrstat() {
-  pwrstat -status | awk '
-    BEGIN {
-      FS = "[.]+"
-    }
-    /Model Name/        { data[0] = "Model Name:            " $2 }
-    /State/             { data[1] = "Status:                " $2 }
-    /Battery Capacity/  { data[2] = "Battery Capacity:      " $2 }
-    /Remaining Runtime/ { data[3] = "Remaining Runtime:     " $2 }
-    /Load/              { data[4] = "Load:                  " $2 }
-    /Last Power Event/  { data[5] = "Last Power Event:      " $2 }
-    END {
-      for (i = 0; i < 6; i++) {
-        print data[i]
-      }
-    }
-  '
+  # Capture output lines from awk into a Bash array
+  mapfile -t data < <(pwrstat -status | awk -F '[.]+' '
+    /Model Name/        { print $2 }
+    /State/             { print $2 }
+    /Battery Capacity/  { print $2 }
+    /Remaining Runtime/ { print $2 }
+    /Load/              { print $2 }
+    /Last Power Event/  { print $2 }
+  ')
+
+  # data array now holds:
+  # data[0] = Model Name
+  # data[1] = State
+  # data[2] = Battery Capacity
+  # data[3] = Remaining Runtime
+  # data[4] = Load
+  # data[5] = Last Power Event
 }
 
 parse_pwrstat
+
+echo "Model Name:       ${data[0]}"
+echo "Status:           ${data[1]}"
+echo "Battery Capacity: ${data[2]}"
+echo "Remaining Runtime:${data[3]}"
+echo "Load:             ${data[4]}"
+echo "Last Power Event: ${data[5]}"
+
