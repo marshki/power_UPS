@@ -5,26 +5,16 @@ parse_pwrstat() {
   pwrstat -status | awk '
     BEGIN {
       FS = "[.]+"
-      pwrstat_field["Model Name"] = ""
-      pwrstat_field["Status"] = ""
-      pwrstat_field["Battery Capacity"] = ""
-      pwrstat_field["Remaining Runtime"] = ""
-      pwrstat_field["Load"] = ""
-      pwrstat_field["Last Power Event"] = ""
     }
-
-    /Model Name/        { pwrstat_field["Model Name"] = $2 }
-    /State/             { pwrstat_field["Status"] = $2 }
-    /Battery Capacity/  { pwrstat_field["Battery Capacity"] = $2 }
-    /Remaining Runtime/ { pwrstat_field["Remaining Runtime"] = $2 }
-    /Load/              { pwrstat_field["Load"] = $2 }
-    /Last Power Event/  { pwrstat_field["Last Power Event"] = $2 }
-
+    /Model Name/        { data[0] = "Model Name:            " $2 }
+    /State/             { data[1] = "Status:                " $2 }
+    /Battery Capacity/  { data[2] = "Battery Capacity:      " $2 }
+    /Remaining Runtime/ { data[3] = "Remaining Runtime:     " $2 }
+    /Load/              { data[4] = "Load:                  " $2 }
+    /Last Power Event/  { data[5] = "Last Power Event:      " $2 }
     END {
-      for (key in pwrstat_field) {
-        printf "%s\n", key, pwrstat_field[key]
-
-        #printf "%-20s %s\n", key ":", pwrstat_field[key]
+      for (i = 0; i < 6; i++) {
+        print data[i]
       }
     }
   '
