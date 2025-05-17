@@ -22,7 +22,9 @@ parse_pwrstat() {
 
     END {
       for (key in pwrstat_field) {
-        printf "%-20s %s\n", key ":", pwrstat_field[key]
+        printf "%s\n", key, pwrstat_field[key]
+
+        #printf "%-20s %s\n", key ":", pwrstat_field[key]
       }
     }
   '
