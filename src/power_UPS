@@ -76,6 +76,7 @@ progress_bar() {
     done
 
   } | whiptail --gauge "Running the UPS test. Please wait..." 10 40 0
+
   wait $test_pid
 }
 
