@@ -10,7 +10,6 @@ parse_pwrstat() {
     /Load/              { print $2 }
     /Last Power Event/  { print $2 }
   ')
-
 }
 parse_pwrstat
 
