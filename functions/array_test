@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-# Test using associative array to simplify calls and to improve readability.
+# Parse output of `pwrstat` command and print (cleanly).
 
+# Create associative array ('parsed_values') via redirection
+# awk splits the output of each line of the 'pwrstat -status' command
+# wherever it finds one or more periods ('.').
 parse_pwrstat() {
-  mapfile -t parsed_value < <(pwrstat -status | awk -F '[.]+' '
+  mapfile -t parsed_values < <(pwrstat -status | awk -F '[.]+' '
     /Model Name/        { print $2 }
     /State/             { print $2 }
     /Battery Capacity/  { print $2 }
@@ -13,9 +16,10 @@ parse_pwrstat() {
 }
 parse_pwrstat
 
-printf "%s\n" "Model Name:       ${parsed_value[0]}"
-printf "%s\n" "Status:           ${parsed_value[1]}"
-printf "%s\n" "Battery Capacity: ${parsed_value[2]}"
-printf "%s\n" "Remaining Runtime:${parsed_value[3]}"
-printf "%s\n" "Load:             ${parsed_value[4]}"
-printf "%s\n" "Last Power Event: ${parsed_value[5]}"
+# Print desired valued from array:
+printf "%s\n" "Model Name:       ${parsed_values[0]}"
+printf "%s\n" "Status:           ${parsed_values[1]}"
+printf "%s\n" "Battery Capacity: ${parsed_values[2]}"
+printf "%s\n" "Remaining Runtime:${parsed_values[3]}"
+printf "%s\n" "Load:             ${parsed_values[4]}"
+printf "%s\n" "Last Power Event: ${parsed_values[5]}"
