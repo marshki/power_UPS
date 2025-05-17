@@ -13,9 +13,9 @@ parse_pwrstat() {
 }
 parse_pwrstat
 
-echo "Model Name:       ${parsed_value[0]}"
-echo "Status:           ${parsed_value[1]}"
-echo "Battery Capacity: ${parsed_value[2]}"
-echo "Remaining Runtime:${parsed_value[3]}"
-echo "Load:             ${parsed_value[4]}"
-echo "Last Power Event: ${parsed_value[5]}"
+printf "%s\n" "Model Name:       ${parsed_value[0]}"
+printf "%s\n" "Status:           ${parsed_value[1]}"
+printf "%s\n" "Battery Capacity: ${parsed_value[2]}"
+printf "%s\n" "Remaining Runtime:${parsed_value[3]}"
+printf "%s\n" "Load:             ${parsed_value[4]}"
+printf "%s\n" "Last Power Event: ${parsed_value[5]}"
