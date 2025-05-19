@@ -17,6 +17,15 @@ parse_pwrstat_text_only() {
 
 parse_pwrstat_text_only
 
+format_pwrstat() {
+  printf "Model Name:       %s\n" "${parsed_values[0]}"
+  printf "Status:           %s\n" "${parsed_values[1]}"
+  printf "Battery Capacity: %s\n" "${parsed_values[2]}"
+  printf "Remaining Runtime: %s\n" "${parsed_values[3]}"
+  printf "Load:             %s\n" "${parsed_values[4]}"
+  printf "Last Power Event: %s\n" "${parsed_values[5]}"
+}
+
 # Print output cleanly.
 printf "%s\n" "Model Name:       ${parsed_values[0]}"
 printf "%s\n" "Status:           ${parsed_values[1]}"
