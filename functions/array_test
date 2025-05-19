@@ -14,12 +14,16 @@ parse_pwrstat() {
     /Last Power Event/  { print $2 }
   ')
 }
+
 parse_pwrstat
 
-# Print desired valued from array:
-printf "%s\n" "Model Name:       ${parsed_values[0]}"
-printf "%s\n" "Status:           ${parsed_values[1]}"
-printf "%s\n" "Battery Capacity: ${parsed_values[2]}"
-printf "%s\n" "Remaining Runtime:${parsed_values[3]}"
-printf "%s\n" "Load:             ${parsed_values[4]}"
-printf "%s\n" "Last Power Event: ${parsed_values[5]}"
+# Print output.
+for i in "${!parsed_values[@]}"; do
+  echo "${parsed_values[$i]}"
+done
+#printf "%s\n" "Model Name:       ${parsed_values[0]}"
+#printf "%s\n" "Status:           ${parsed_values[1]}"
+#printf "%s\n" "Battery Capacity: ${parsed_values[2]}"
+#printf "%s\n" "Remaining Runtime:${parsed_values[3]}"
+#printf "%s\n" "Load:             ${parsed_values[4]}"
+#printf "%s\n" "Last Power Event: ${parsed_values[5]}"
