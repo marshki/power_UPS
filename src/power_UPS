@@ -4,13 +4,12 @@
 # power_ups
 #
 # Author: M. Krinitz <mjk235 [at] nyu [dot] edu>
-# Date: 2025.05.02
+# Date: 2025.05.20
 # License: MIT
 #
 
 script=$(basename "$0")
 program="power_UPS"
-data_file="ups_data.csv"
 
 command_check() {
   for cmd in "$@"; do
@@ -21,13 +20,6 @@ command_check() {
 done
 }
 
-data_file_check() {
-  if [ ! -f "$data_file" ]; then
-    whiptail --backtitle "$script" --title "$program" --msgbox "Data file '$data_file' not found. Exiting." 10 40 0
-    exit 1
-  fi
-}
-
 permission_check() {
   if [ "$EUID" -ne "0" ]; then
     whiptail --backtitle "$script" --title "$program" --msgbox "'sudo' privileges not detected. Exiting." 10 40 0
@@ -35,32 +27,44 @@ permission_check() {
   fi
 }
 
+#parse_pwrstat() {
+#  pwrstat -status | awk '
+#    BEGIN {
+#      FS = "[.]+"
+#      model = ""
+#      state = ""
+#      battery = ""
+#      runtime = ""
+#      load = ""
+#      event = ""
+#    }
+#    /Model Name/        { model = "Model Name:            " $2 }
+#    /State/             { state = "Status:                " $2 }
+#    /Battery Capacity/  { battery = "Battery Capacity:      " $2 }
+#    /Remaining Runtime/ { runtime = "Remaining Runtime:     " $2 }
+#    /Load/              { load = "Load:                  " $2 }
+#    /Last Power Event/  { event = "Last Power Event:      " $2 }
+#    END {
+#      print model
+#      print state
+#      print battery
+#      print runtime
+#      print load
+#      print event
+#    }
+#  '
+#}
 parse_pwrstat() {
-  pwrstat -status | awk '
-    BEGIN {
-      FS = "[.]+"
-      model = ""
-      state = ""
-      battery = ""
-      runtime = ""
-      load = ""
-      event = ""
-    }
-    /Model Name/        { model = "Model Name:            " $2 }
-    /State/             { state = "Status:                " $2 }
-    /Battery Capacity/  { battery = "Battery Capacity:      " $2 }
-    /Remaining Runtime/ { runtime = "Remaining Runtime:     " $2 }
-    /Load/              { load = "Load:                  " $2 }
-    /Last Power Event/  { event = "Last Power Event:      " $2 }
-    END {
-      print model
-      print state
-      print battery
-      print runtime
-      print load
-      print event
-    }
-  '
+  mapfile -t parsed_values < <(pwrstat -status | awk -F '[.]+' '
+    /Model Name/        { print $2 }
+    /Firmware Number/   { print $2 }
+    /State/             { print $2 }
+    /Power Supply by/   { print $2 }
+    /Battery Capacity/  { print $2 }
+    /Remaining Runtime/ { print $2 }
+    /Load/              { print $2 }
+    /Last Power Event/  { print $2 }
+  ')
 }
 
 run_ups_test() {
