@@ -67,13 +67,18 @@ parse_pwrstat() {
   ')
 }
 
-format_parsed_values() {
+format_parsed_values_ups_stats() {
   printf "Model Name:       %s\n" "${parsed_values[0]}"
   printf "Firmware Number:  %s\n" "${parsed_values[1]}"
   printf "State:            %s\n" "${parsed_values[2]}"
   printf "Power Supply by:  %s\n" "${parsed_values[3]}"
   printf "Battery Capacity: %s\n" "${parsed_values[4]}"
   printf "Last Power Event: %s\n" "${parsed_values[7]}"
+}
+
+format_parsed_values_ups_runtime() {
+  printf "Remaining Runtime:%s\n" "${parsed_values[5]}"
+  printf "Load:             %s\n" "${parsed_values[6]}"
 }
 
 run_ups_test() {
