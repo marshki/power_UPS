@@ -4,25 +4,33 @@
 script=$(basename "$0")
 program="power_UPS"
 
-# Pipe pwrstat -status output to awk
-# awk to parse select 'pwrstat' values ('.' field separator)
-# awk to print values
-ups_runtime() {
-  pwrstat -status | awk '
-    BEGIN {
-      FS = "[.]+"
-      runtime = ""
-      load = ""
-    }
-    /Remaining Runtime/ { runtime = "Minutes of Runtime (Estimated):     " $2 }
-    /Load/              { load = "UPS Load (Watts):                   " $2 }
+# Create associative array ('parsed_values') via redirection
+# awk splits the output of each line of the 'pwrstat -status' command
+# wherever it finds one or more periods ('.').
+parse_pwrstat() {
+  mapfile -t parsed_values < <(pwrstat -status | awk -F '[.]+' '
+    /Model Name/        { print $2 }
+    /Firmware Number/   { print $2 }
+    /State/             { print $2 }
+    /Power Supply by/   { print $2 }
+    /Battery Capacity/  { print $2 }
+    /Remaining Runtime/ { print $2 }
+    /Load/              { print $2 }
+    /Last Power Event/  { print $2 }
+  ')
+}
 
-    END {
-      print load
-      print runtime
-    }
-  '
-} 
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(ups_runtime)" 12 72 0
+parse_pwrstat
+
+format_parsed_values() {
+  printf "Remaining Runtime:%s\n" "${parsed_values[5]}"
+  printf "Load:             %s\n" "${parsed_values[6]}"
+}
+
+ups_runtime() {
+  local formatted_output
+  formatted_output=$(format_parsed_values)
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$formatted_output" 12 72 0
+}
 
 ups_runtime
