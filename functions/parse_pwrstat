@@ -10,7 +10,9 @@ program="power_UPS"
 parse_pwrstat() {
   mapfile -t parsed_values < <(pwrstat -status | awk -F '[.]+' '
     /Model Name/        { print $2 }
+    /Firmware Number/   { print $2 }
     /State/             { print $2 }
+    /Power Supply by/   { print $2 }
     /Battery Capacity/  { print $2 }
     /Remaining Runtime/ { print $2 }
     /Load/              { print $2 }
@@ -22,11 +24,13 @@ parse_pwrstat
 
 format_parsed_values() {
   printf "Model Name:       %s\n" "${parsed_values[0]}"
-  printf "Status:           %s\n" "${parsed_values[1]}"
-  printf "Battery Capacity: %s\n" "${parsed_values[2]}"
-  printf "Remaining Runtime:%s\n" "${parsed_values[3]}"
-  printf "Load:             %s\n" "${parsed_values[4]}"
-  printf "Last Power Event: %s\n" "${parsed_values[5]}"
+  printf "Firmware Number:  %s\n" "${parsed_values[1]}"
+  printf "State:            %s\n" "${parsed_values[2]}"
+  printf "Power Supply by:  %s\n" "${parsed_values[3]}"
+  printf "Battery Capacity: %s\n" "${parsed_values[4]}"
+# printf "Remaining Runtime:%s\n" "${parsed_values[5]}"
+# printf "Load:             %s\n" "${parsed_values[6]}"
+  printf "Last Power Event: %s\n" "${parsed_values[7]}"
 }
 
 ups_stats() {
