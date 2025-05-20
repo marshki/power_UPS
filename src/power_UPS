@@ -67,6 +67,15 @@ parse_pwrstat() {
   ')
 }
 
+format_parsed_values() {
+  printf "Model Name:       %s\n" "${parsed_values[0]}"
+  printf "Firmware Number:  %s\n" "${parsed_values[1]}"
+  printf "State:            %s\n" "${parsed_values[2]}"
+  printf "Power Supply by:  %s\n" "${parsed_values[3]}"
+  printf "Battery Capacity: %s\n" "${parsed_values[4]}"
+  printf "Last Power Event: %s\n" "${parsed_values[7]}"
+}
+
 run_ups_test() {
   pwrstat -test >/dev/null 2>&1 &
   test_pid=$!
@@ -92,12 +101,12 @@ ups_stats() {
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat)" 16 72 0
 }
 
-ups_runtime() {
-  local table
-  table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2 }' "$data_file")
+#ups_runtime() {
+#  local table
+#  table=$(awk -F ',' '{ printf "%-15s %-30s\n", $1, $2 }' "$data_file")
 
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$table" 30 60 0
-}
+#  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$table" 30 60 0
+#}
 
 ups_test_result() {
   TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_test_result)" 12 72 0
