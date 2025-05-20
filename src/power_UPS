@@ -54,6 +54,7 @@ permission_check() {
 #    }
 #  '
 #}
+
 parse_pwrstat() {
   mapfile -t parsed_values < <(pwrstat -status | awk -F '[.]+' '
     /Model Name/        { print $2 }
@@ -67,7 +68,7 @@ parse_pwrstat() {
   ')
 }
 
-format_parsed_values_ups_stats() {
+format_parsed_values_stats() {
   printf "Model Name:       %s\n" "${parsed_values[0]}"
   printf "Firmware Number:  %s\n" "${parsed_values[1]}"
   printf "State:            %s\n" "${parsed_values[2]}"
@@ -76,7 +77,7 @@ format_parsed_values_ups_stats() {
   printf "Last Power Event: %s\n" "${parsed_values[7]}"
 }
 
-format_parsed_values_ups_runtime() {
+format_parsed_values_runtime() {
   printf "Remaining Runtime:%s\n" "${parsed_values[5]}"
   printf "Load:             %s\n" "${parsed_values[6]}"
 }
@@ -103,7 +104,15 @@ parse_pwrstat_test_result() {
 }
 
 ups_stats() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat)" 16 72 0
+  local formatted_output
+  formatted_output=$(format_parsed_values_stats)
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$formatted_output" 16 72 0
+}
+
+ups_runtime() {
+  local formatted_output
+  formatted_output=$(format_parsed_values_runtime)
+  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$formatted_output" 16 72 0
 }
 
 #ups_runtime() {
@@ -129,8 +138,7 @@ main() {
   clear
   command_check "pwrstat" "whiptail"
   permission_check
-  data_file_check
-
+  parse_pwrstat
   while true; do
     choice=$(tui_menu)
 
