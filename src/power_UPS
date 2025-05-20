@@ -6,6 +6,7 @@
 # Author: M. Krinitz <mjk235 [at] nyu [dot] edu>
 # Date: 2025.05.20
 # License: MIT
+#
 
 script=$(basename "$0")
 program="power_UPS"
@@ -21,7 +22,8 @@ done
 
 permission_check() {
   if [ "$EUID" -ne "0" ]; then
-    whiptail --backtitle "$script" --title "$program" --msgbox "'sudo' privileges not detected. Exiting." 10 40 0
+    whiptail --backtitle "$script" --title "$program" \
+      --msgbox "'sudo' privileges not detected. Exiting." 10 40 0
     exit 1
   fi
 }
@@ -71,27 +73,32 @@ progress_bar() {
 }
 
 parse_pwrstat_test_result() {
-  pwrstat -status | awk -F '[.]+' '/Test Result/ { print "Test Result:            "$2 }'
+  pwrstat -status | \
+    awk -F '[.]+' '/Test Result/ { print "Test Result:            "$2 }'
 }
 
 ups_stats() {
   local formatted_output
   formatted_output=$(format_parsed_values_stats)
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$formatted_output" 16 72 0
+  TERM=ansi whiptail --backtitle "$script" --title "$program" \
+    --msgbox "$formatted_output" 16 72 0
 }
 
 ups_runtime() {
   local formatted_output
   formatted_output=$(format_parsed_values_runtime)
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$formatted_output" 16 72 0
+  TERM=ansi whiptail --backtitle "$script" --title "$program" \
+    --msgbox "$formatted_output" 16 72 0
 }
 
 ups_test_result() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --msgbox "$(parse_pwrstat_test_result)" 12 72 0
+  TERM=ansi whiptail --backtitle "$script" --title "$program" \
+    --msgbox "$(parse_pwrstat_test_result)" 12 72 0
 }
 
 tui_menu() {
-  TERM=ansi whiptail --backtitle "$script" --title "$program" --menu "Select an option" 12 48 4 \
+  TERM=ansi whiptail --backtitle "$script" --title "$program" \
+    --menu "Select an option" 12 48 4 \
   "Status" "Display current UPS status" \
   "Runtime" "Display estimated UPS runtime" \
   "Test" "Perform UPS battery check" \
