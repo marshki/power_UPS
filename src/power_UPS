@@ -125,11 +125,11 @@ main() {
             ups_test_result
             ;;
         Exit)
-            whiptail --msgbox "Exiting." 12 40 0
+            whiptail --msgbox "Exiting." 10 40 0
             break
             ;;
         *)
-            whiptail --msgbox "Invalid selection" 12 40 0
+            whiptail --msgbox "Invalid selection" 10 40 0
             ;;
     esac
   done
