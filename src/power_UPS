@@ -87,7 +87,7 @@ ups_runtime() {
   local formatted_output
   formatted_output=$(format_parsed_values_runtime)
   TERM=ansi whiptail --backtitle "$script" --title "$program" \
-    --msgbox "$formatted_output" 16 72 0
+    --msgbox "$formatted_output" 12 72 0
 }
 
 ups_test_result() {
