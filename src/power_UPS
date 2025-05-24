@@ -6,7 +6,6 @@
 # Author: M. Krinitz <mjk235 [at] nyu [dot] edu>
 # Date: 2025.05.20
 # License: MIT
-#
 
 script=$(basename "$0")
 program="power_UPS"
