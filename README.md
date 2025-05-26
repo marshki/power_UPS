@@ -1,13 +1,23 @@
-# power_UPS :battery: :arrow_heading_up:
+# power_UPS :battery::arrow_heading_up:
 
-Wrapper script provides TUI front-end for the CyberPower UPS `pwrstat` utility.
+Bash wrapper provides TUI front-end for the CyberPower UPS `pwrstat` utility.
 
-Tested Models:
+Sample output:
 
-* PR1500LCD
+![alt text](https://github.com/marshki/power_UPS/blob/main/docs/PowerUPS-main.png)
 
-For reference: [PR1500LCD](https://www.cyberpowersystems.com/product/ups/smart-app-sinewave/pr1500lcd/)
 
+## Getting Started
+
+### Requirements
+
+### Usage
+
+## Tested Models
+
+|Model    |Manual | 
+|---      |---    |
+|PR1500LCD[[PR1500LCD](https://www.cyberpowersystems.com/product/ups/smart-app-sinewave/pr1500lcd/)|
 
 ## History
 
