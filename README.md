@@ -1,5 +1,6 @@
 # power_UPS :battery::arrow_heading_up:
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/158a13b795a84f4f95075fc3f51f1959)](https://app.codacy.com/gh/marshki/power_UPS/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
