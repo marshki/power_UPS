@@ -1,4 +1,4 @@
-# power_UPS :battery: arrow_heading_up:
+# power_UPS :battery: :arrow_heading_up:
 
 Wrapper script provides TUI front-end for the CyberPower UPS `pwrstat` utility.
 
