@@ -26,6 +26,8 @@ with:
 
 ### Usage
 
+Call power_UPS with: `bash power_UPS` and use your keyboard to navigate the TUI.
+
 ## Tested Models
 
 |Model    |Manual |
