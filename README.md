@@ -1,4 +1,5 @@
 # power_UPS :battery::arrow_heading_up:
+
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
@@ -15,11 +16,13 @@ Bash wrapper provides TUI front-end for the CyberPower UPS `pwrstat` utility.
 ### Requirements
 
 In addition to a CyberPower UPS model that's compatible with:
-- [PowerPanel](https://www.cyberpowersystems.com/products/software/power-panel-personal/),
+
+  - [PowerPanel](https://www.cyberpowersystems.com/products/software/power-panel-personal/),
 
 you'll need to install:
-- `pwrstat`
-- `whiptail`
+
+  - `pwrstat`
+  - `whiptail`
  
 with:
 
