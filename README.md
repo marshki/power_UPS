@@ -1,8 +1,8 @@
 # power_UPS
 
-Bash script to probe CyberPower UPS `pwrstat` utility.
+Wrapper script provides TUI front-end for the CyberPower UPS `pwrstat` utility.
 
-Models: 
+Tested Models:
 
 * PR1500LCD
 
