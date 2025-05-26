@@ -22,6 +22,7 @@ In addition to a CyberPower UPS model that's compatible with:
 you'll need to install:
 
   - `pwrstat`
+
   - `whiptail`
  
 with:
@@ -49,5 +50,5 @@ Call power_UPS with: `bash power_UPS` and use your keyboard to navigate the TUI.
 | 0.0     | 27-MAR-2025  |
 
 ## License
-[License](https://github.com/marshki/power_UPS/blob/main/LICENSE)
 
+[License](https://github.com/marshki/power_UPS/blob/main/LICENSE)
