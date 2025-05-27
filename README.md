@@ -11,6 +11,9 @@ Bash wrapper provides TUI front-end for the CyberPower UPS `pwrstat` utility.
 *Sample output:*
 
 ![alt text](https://github.com/marshki/power_UPS/blob/main/docs/PowerUPS-main.png)
+![alt text](https://github.com/marshki/power_UPS/blob/main/docs/PowerUPS-stats.png)
+![alt text](https://github.com/marshki/power_UPS/blob/main/docs/PowerUPS-progress.png)
+![alt text](https://github.com/marshki/power_UPS/blob/main/docs/PowerUPS-result.png)
 
 ## Getting Started
 
