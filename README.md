@@ -53,6 +53,13 @@ Call power_UPS with: `bash power_UPS` and use your keyboard to navigate the TUI.
 | 0.1     | 25-MAY-2025  |
 | 0.0     | 27-MAR-2025  |
 
+## TODO
+
+Potential add-on features:
+
+- [ ] Configure the setting when a power failure event occurs.
+- [ ] Configure the setting when the low battery event occurs.
+
 ## License
 
 [License](https://github.com/marshki/power_UPS/blob/main/LICENSE)
