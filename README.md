@@ -55,7 +55,7 @@ Call power_UPS with: `bash power_UPS` and use your keyboard to navigate the TUI.
 
 ## TODO
 
-Potential add-on features:
+Potential add-on features ([for reference](https://www.cyberpower.com/vn/en/File/GetCyberpowerFileByDocId/SM-18080041-01))
 
 - [ ] Configure the setting when a power failure event occurs.
 - [ ] Configure the setting when the low battery event occurs.
