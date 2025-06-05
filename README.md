@@ -29,7 +29,7 @@ you'll need to install:
 
 - `whiptail`
  
-with:
+with one of the following:
 
 |Package Manager|Command                       |
 |---            |---                           |
