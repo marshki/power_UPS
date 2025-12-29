@@ -22,7 +22,7 @@ Bash wrapper provides TUI front-end for the CyberPower UPS `pwrstat` utility.
 
 In addition to a CyberPower UPS model that's compatible with:
 
-- [PowerPanel](https://www.cyberpowersystems.com/products/software/power-panel-personal/),
+- [PowerPanel](https://www.cyberpowersystems.com/products/software/power-panel-personal/)
 
 you'll need to install:
 
