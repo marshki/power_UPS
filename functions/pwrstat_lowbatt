@@ -1,0 +1,4 @@
+#!/usr/local/bin bash
+# lowbatt parameters
+
+pwrstat -lowbatt -runtime [0-3600] -capacity [0-90] -active [on | off} -cmd /etc/pwrstatd-lowbatt.sh -duration [0-60] -shutdown [on | off]
