@@ -1,0 +1,4 @@
+#!/usr/local/bin bash
+# pwrfail paramaters
+
+pwrstat -pwrfail [-delay <seconds>] [-active on | off] [-cmd <shell_script>] [-duration <seconds>] [-shutdown on | off]
