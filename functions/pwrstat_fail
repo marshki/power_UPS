@@ -1,4 +1,7 @@
 #!/usr/local/bin bash
-# pwrfail paramaters
+# Set parameters for pwrstat pwrfail option.
+
+script=$(basename "$0")
+program="power_UPS"
 
 pwrstat -pwrfail [-delay <seconds>] [-active on | off] [-cmd <shell_script>] [-duration <seconds>] [-shutdown on | off]
