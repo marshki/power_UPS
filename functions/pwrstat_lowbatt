@@ -1,4 +1,7 @@
 #!/usr/local/bin bash
-# lowbatt parameters
+# Set parameters for pwrstat lowbatt option.
+
+script=$(basename "$0")
+program="power_UPS"
 
 pwrstat -lowbatt -runtime [0-3600] -capacity [0-90] -active [on | off} -cmd /etc/pwrstatd-lowbatt.sh -duration [0-60] -shutdown [on | off]
